@@ -17,67 +17,74 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    public function login()
+    public function login(Request $request)
     {
-        return view('admin.admin_login');
-    }
+        if ($request->isMethod('post')) {
 
-    public function login_submit(Request $request)
-    {
-        $request->validate([
-            'username' => ['required'],
-            'password' => ['required'],
-        ]);
+            $inputs= $request->all();
+            $username = $inputs['username'] ?? '';
 
-        $inputs = $request->all();
-        $data = [
-            'username' => $inputs['username'],
-            'password' => $inputs['password'],
-        ];
+            $request->validate([
+                'username' => ['required'],
+                'password' => ['required'],
+            ]);
 
-        if (Auth::guard('admin')->attempt($data)) {
-            return redirect()->route('admin_dashboard');
+            $data = [
+                'username' => $username,
+                'password' => $inputs['password'],
+            ];
+
+            if (Auth::guard('admin')->attempt($data)) {
+                return redirect()->route('admin_dashboard');
+            } else {
+                return view('admin.login')->withErrors('Invalid login credentials. Please try again.');
+            }
         } else {
-            return redirect()->route('admin_login')->with('error', 'Invalid login credentials. Please try again.');
+
+            return view('admin.login');
         }
     }
 
-    public function admin_logout()
+    public function logout()
     {
         Auth::guard('admin')->logout();
         return redirect()->route('admin_login')->with('success', 'Admin logout successfully.');
     }
 
-    public function forgot_password()
+    public function forgot_password(Request $request)
     {
-        return view('admin.admin_forgot_password');
-    }
+        if ($request->isMethod('post')) {
 
-    public function forgot_password_submit(Request $request)
-    {
-        $request->validate([
-            'email' => ['email', 'required']
-        ]);
+            $request->validate([
+                'email' => ['email', 'required']
+            ]);
 
-        $admin = Admin::where('email', $request->email)->first();
-        if (!$admin) {
-            return redirect()->back()->with('error', 'Admin with provided email does not exist.');
+            $email = $request->email ?? '';
+            $admin = Admin::where('email', $email)->where('status', 1)->first();
+            if (!$admin) {
+                return view('admin.forgot_password')->withErrors('Admin with provided email does not exist.');
+            }
+
+            $admin->token = hash('sha256', time());
+            $admin->update();
+
+            $pResetLink = route('admin_reset_password', ['token' => $admin->token , 'email' => urlencode($email)]);
+            $subject = "Reset Password";
+            $info = [
+                'user' => $admin->username,
+                'email' => $email,
+                'pResetLink' => $pResetLink
+            ];
+
+            Mail::to($request->email)->send(new ResetPassword($subject, $info));
+
+            return redirect()->back()->with('success', 'A reset link has been sent to your email address. Please check your
+            email. If you do not find the email in your inbox, please check your spam folder.');
+
+        } else {
+
+            return view('admin.forgot_password');
         }
-
-        $admin->token = hash('sha256', time());
-        $admin->update();
-
-        $pResetLink = route('admin_reset_password', ['token' => $admin->token , 'email' => urlencode($request->email)]);
-        $subject = "Reset Password";
-        $info = [
-            'user' => $admin->username,
-            'pResetLink' => $pResetLink
-        ];
-
-        Mail::to($request->email)->send(new ResetPassword($subject, $info));
-
-        return redirect()->back()->with('success', 'A reset link has been sent to your email address. Please check your
-        email. If you do not find the email in your inbox, please check your spam folder.');
     }
 
     public function reset_password($token, $email)

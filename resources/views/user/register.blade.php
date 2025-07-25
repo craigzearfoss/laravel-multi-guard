@@ -84,13 +84,13 @@
                                             <div class="form-item vertical">
                                                 <label class="form-label mb-2">Name</label>
                                                 <div>
-                                                    <input class="input" type="text" name="name" placeholder="Name">
+                                                    <input class="input" type="text" name="name" value="{{ old('name') }}" placeholder="Name">
                                                 </div>
                                             </div>
                                             <div class="form-item vertical">
                                                 <label class="form-label mb-2">Email</label>
                                                 <div>
-                                                    <input class="input" type="text" name="email" placeholder="Email">
+                                                    <input class="input" type="text" name="email" value="{{ old('name') }}" placeholder="Email">
                                                 </div>
                                             </div>
                                             <div class="form-item vertical">

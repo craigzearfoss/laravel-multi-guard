@@ -15,10 +15,10 @@ Route::middleware('admin')->prefix('admin')->group(function () {
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminController::class, 'login'])->name('admin_login');
-    Route::post('/login', [AdminController::class, 'login_submit'])->name('admin_login_submit');
-    Route::get('/logout', [AdminController::class, 'admin_logout'])->name('admin_logout');
+    Route::post('/login', [AdminController::class, 'login'])->name('admin_login_submit');
+    Route::get('/logout', [AdminController::class, 'logout'])->name('admin_logout');
     Route::get('/forgot-password', [AdminController::class, 'forgot_password'])->name('admin_forgot_password');
-    Route::post('/forgot-password', [AdminController::class, 'forgot_password_submit'])->name('admin_forgot_password_submit');
+    Route::post('/forgot-password', [AdminController::class, 'forgot_password'])->name('admin_forgot_password_submit');
     Route::get('/reset-password/{token}/{email}', [AdminController::class, 'reset_password'])->name('admin_reset_password');
     Route::post('/reset-password/{token}/{email}', [AdminController::class, 'reset_password_submit'])->name('admin_reset_password_submit');
 });
@@ -32,9 +32,9 @@ Route::get('/register', [UserController::class, 'register'])->name('register');
 Route::post('/register', [UserController::class, 'register_submit'])->name('register_submit');
 Route::get('/verify-email/{token}/{email}', [UserController::class, 'email_verification'])->name('email_verification');
 Route::get('/login', [UserController::class, 'login'])->name('login');
-Route::post('/login', [UserController::class, 'login_submit'])->name('login_submit');
+Route::post('/login', [UserController::class, 'login'])->name('login_submit');
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/forgot-password', [UserController::class, 'forgot_password'])->name('forgot_password');
-Route::post('/forgot-password', [UserController::class, 'forgot_password_submit'])->name('forgot_password_submit');
+Route::post('/forgot-password', [UserController::class, 'forgot_password'])->name('forgot_password_submit');
 Route::get('/reset-password/{token}/{email}', [UserController::class, 'reset_password'])->name('reset_password');
 Route::post('/reset-password/{token}/{email}', [UserController::class, 'reset_password_submit'])->name('reset_password_submit');

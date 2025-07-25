@@ -80,7 +80,7 @@
                                                 <div class="form-item vertical">
                                                     <label class="form-label mb-2">User Name</label>
                                                     <div>
-                                                        <input class="input" type="text" name="username" placeholder="User Name">
+                                                        <input class="input" type="text" name="username" value="{{ old('username') }}" placeholder="User Name">
                                                     </div>
                                                 </div>
                                                 <div class="form-item vertical">

@@ -14,8 +14,7 @@
                         </div>
                         <div class="text-center">
                             <div class="mb-4">
-                                <h3 class="mb-1">Forgot Password</h3>
-                                <p>Please enter your email address to receive a password reset link.</p>
+                                <h3 class="mb-1">Register New User</h3>
 
                                 @include('user.components.messages', [$errors])
 
@@ -33,7 +32,7 @@
                                         <div class="form-item vertical">
                                             <label class="form-label mb-2">Email</label>
                                             <div>
-                                                <input class="input" type="text" name="email" value="{{ old('name') }}" placeholder="Email">
+                                                <input class="input" type="text" name="email" value="{{ old('email') }}" placeholder="Email">
                                             </div>
                                         </div>
                                         <div class="form-item vertical">

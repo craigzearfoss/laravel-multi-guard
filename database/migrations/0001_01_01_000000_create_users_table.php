@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('token')->nullable();
-            $table->string('status')->default(0)->comment('0-pending, 1-active');
+            $table->tinyInteger('status')->default(0)->comment('0-pending, 1-active');
+            $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
         });
 

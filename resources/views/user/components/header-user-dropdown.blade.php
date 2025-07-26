@@ -7,7 +7,6 @@
                      loading="lazy" alt="">
             </span>
             <div class="hidden md:block">
-                <div class="text-xs capitalize">admin</div>
                 <div class="font-bold"> {{ Auth::guard('web')->user()->email }}</div>
             </div>
         </div>

@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/register', [UserController::class, 'register'])->name('register');
-Route::post('/register', [UserController::class, 'register_submit'])->name('register_submit');
+Route::post('/register', [UserController::class, 'register'])->name('register_submit');
 Route::get('/verify-email/{token}/{email}', [UserController::class, 'email_verification'])->name('email_verification');
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'login'])->name('login_submit');

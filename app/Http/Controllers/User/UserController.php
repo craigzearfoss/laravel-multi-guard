@@ -24,7 +24,7 @@ class UserController extends Controller
 
             $request->validate([
                 'name' => ['required'],
-                'email' => ['required', 'email'],
+                'email' => ['required', 'email', 'unique:users,email'],
                 'password' => ['required'],
                 'confirm_password' => ['required', 'same:password'],
             ]);
@@ -34,10 +34,12 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->token = hash('sha256', time());
+            $user->status = 0;
+            $user->disabled = 1;
             $user->save();
 
             $verificationLink = route('email_verification', ['token' => $user->token , 'email' => urlencode($request->email)]);
-            $subject = "Email Verification";
+            $subject = "Email Verification from " . getenv('APP_NAME');
             $info = [
                 'name' => $user->name,
                 'verificationLink' => $verificationLink
@@ -55,38 +57,9 @@ class UserController extends Controller
         }
     }
 
-    public function register_submit(Request $request)
-    {
-        $request->validate([
-            'name' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-            'confirm_password' => ['required', 'same:password'],
-        ]);
-
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->token = hash('sha256', time());
-        $user->save();
-
-        $verificationLink = route('email_verification', ['token' => $user->token , 'email' => urlencode($request->email)]);
-        $subject = "Email Verification";
-        $info = [
-            'name' => $user->name,
-            'verificationLink' => $verificationLink
-        ];
-
-        Mail::to($request->email)->send(new VerifyEmail($subject, $info));
-
-        return redirect()->back()->with('success', 'You need to verify your email to complete your registration.
-        We have sent a verification link to your email. If you cannot find the email in your inbox, please check
-        your spam folder.');
-    }
-
     public function email_verification($token, $email)
     {
+
         $user = User::where('email', $email)->where('token', $token)->first();
         if (!$user) {
             return redirect()->route('login');
@@ -94,6 +67,7 @@ class UserController extends Controller
 
         $user->token = null;
         $user->status = 1;
+        $user->disabled = 0;
         $user->update();
 
         return redirect()->route('login')->with('success', 'Your email has been verified. You can now login
@@ -154,7 +128,7 @@ class UserController extends Controller
             $user->update();
 
             $pResetLink = route('reset_password', ['token' => $user->token , 'email' => urlencode($email)]);
-            $subject = "Reset Password";
+            $subject = "Reset Password from " . getenv('APP_NAME');
             $info = [
                 'user' => $user->name,
                 'email' => $user->email,

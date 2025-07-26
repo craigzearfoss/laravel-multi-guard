@@ -65,7 +65,7 @@ class AdminController extends Controller
             ]);
 
             $email = $request->email ?? '';
-            $admin = Admin::where('email', $email)->where('status', 1)->first();
+            $admin = Admin::where('email', $email)->first();
             if (!$admin) {
                 return view('admin.forgot_password')->withErrors('Admin with provided email does not exist.');
             }
@@ -74,7 +74,7 @@ class AdminController extends Controller
             $admin->update();
 
             $pResetLink = route('admin_reset_password', ['token' => $admin->token , 'email' => urlencode($email)]);
-            $subject = "Reset Password";
+            $subject = "Reset Password from " . getenv('APP_NAME');
             $info = [
                 'user' => $admin->username,
                 'email' => $email,

@@ -17,7 +17,7 @@
                                 <h3 class="mb-1">Set new password</h3>
                                 <p>Your new password must be different from previous password.</p>
 
-                                @include('admin.components.messages-login', [$errors])
+                                @include('admin.components.messages', [$errors])
 
                             </div>
                             <div>

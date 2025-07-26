@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
+    public function homepage()
+    {
+        return view('admin.homepage');
+    }
+
     public function dashboard()
     {
         return view('admin.dashboard');

@@ -17,7 +17,7 @@
                                 <h3 class="mb-1">Welcome back.</h3>
                                 <p>Please enter your credentials to Login.</p>
 
-                                @include('admin.components.messages-login', [$errors])
+                                @include('admin.components.messages', [$errors])
 
                             </div>
                             <div>
@@ -60,4 +60,3 @@
     </div>
 
 @endsection
-

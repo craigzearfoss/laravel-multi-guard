@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontendController::class, 'homepage'])->name('homepage');
 
 // Admin
+Route::get('/admin', [AdminController::class, 'homepage'])->name('admin_homepage');
+
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin_dashboard');
 });

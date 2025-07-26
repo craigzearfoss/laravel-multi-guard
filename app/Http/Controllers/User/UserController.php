@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword;
 use App\Mail\VerifyEmail;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,7 @@ class UserController extends Controller
         if ($request->isMethod('post')) {
 
             $request->validate([
-                'name' => ['required'],
+                'name' => ['required', 'min:6', 'max:12'],
                 'email' => ['required', 'email', 'unique:users,email'],
                 'password' => ['required'],
                 'confirm_password' => ['required', 'same:password'],
@@ -36,6 +37,7 @@ class UserController extends Controller
             $user->token = hash('sha256', time());
             $user->status = 0;
             $user->disabled = 1;
+
             $user->save();
 
             $verificationLink = route('email_verification', ['token' => $user->token , 'email' => urlencode($request->email)]);
@@ -59,7 +61,6 @@ class UserController extends Controller
 
     public function email_verification($token, $email)
     {
-
         $user = User::where('email', $email)->where('token', $token)->first();
         if (!$user) {
             return redirect()->route('login');
@@ -69,6 +70,8 @@ class UserController extends Controller
         $user->status = 1;
         $user->disabled = 0;
         $user->update();
+
+        $user->markEmailAsVerified();
 
         return redirect()->route('login')->with('success', 'Your email has been verified. You can now login
         to your account.');

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="light">
 
-@include('admin.includes.login-head')
+@include('admin.components.head-login')
 
 <body>
-<!-- App Start-->
+
 <div id="root">
-    <!-- App Layout-->
+
     <div class="app-layout-blank flex flex-auto flex-col h-[100vh]">
         <main class="h-full">
 

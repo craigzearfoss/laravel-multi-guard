@@ -17,7 +17,7 @@
                                 <h3 class="mb-1">Forgot Password</h3>
                                 <p>Please enter your email address to receive a password reset link.</p>
 
-                                @include('admin.includes.login-messages', [$errors])
+                                @include('admin.components.messages-login', [$errors])
 
                             </div>
                             <div>

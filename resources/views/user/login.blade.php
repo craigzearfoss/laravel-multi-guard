@@ -4,8 +4,8 @@
 
     <div class="xl:min-w-[450px] px-8">
         <div class="mb-8">
-            <h3 class="mb-1">Welcome back!</h3>
-            <p>Please enter your credentials to Login!</p>
+            <h3 class="mb-1">Welcome back.</h3>
+            <p>Please enter your credentials to Login.</p>
 
             @include('user.includes.login-messages', [$errors])
 

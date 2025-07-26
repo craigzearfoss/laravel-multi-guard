@@ -4,6 +4,7 @@
 @include('front.components.head')
 
 <body>
+
 <div id="root">
 
     @yield('content')

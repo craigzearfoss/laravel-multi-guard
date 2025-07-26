@@ -26,6 +26,9 @@
                             </div>
                         </div>
                     </div>
+
+                    @include('admin.components.footer')
+
                 </div>
             </div>
         </div>

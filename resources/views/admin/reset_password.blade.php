@@ -43,7 +43,7 @@
                                             <label class="form-label mb-2">Confirm New Password</label>
                                             <div>
                                                 <span class="input-wrapper">
-                                                    <input class="input pr-8" type="password" name="confirm_password" placeholder="Confirm Mew Password">
+                                                    <input class="input pr-8" type="password" name="confirm_password" placeholder="Confirm New Password">
                                                     <div class="input-suffix-end">
                                                         <span class="cursor-pointer text-xl">
                                                             <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">

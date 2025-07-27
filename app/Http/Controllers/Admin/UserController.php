@@ -41,21 +41,7 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'min:6', 'max:12'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required'],
-            'confirm_password' => ['required', 'same:password'],
-        ]);
-die('ddd');
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->status = 0;
-        $user->disabled = 0;
-
-        $user->save();
+        User::create($request->validated());
 
         return redirect()->route('admin.users.index')
             ->with('success', 'User created successfully. User will need to verify email.');
@@ -82,8 +68,7 @@ die('ddd');
      */
     public function update(UserUpdateRequest $request, User $user): RedirectResponse
     {
-        $user->update
-        ($request->validated());
+        $user->update($request->validated());
 
         return redirect()->route('admin.users.index')
             ->with('success', 'User updated successfully');

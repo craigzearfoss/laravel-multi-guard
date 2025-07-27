@@ -24,13 +24,13 @@
                                 <form action="{{route('login_submit')}}" method="POST">
                                     @csrf
                                     <div class="form-container vertical">
-                                        <div class="form-item vertical mb-4">
+                                        <div class="form-item vertical mb-3">
                                             <label class="form-label mb-1">Email</label>
                                             <div>
                                                 <input class="input" type="text" name="email" value="{{ old('email') }}" placeholder="Email">
                                             </div>
                                         </div>
-                                        <div class="form-item vertical mb-4">
+                                        <div class="form-item vertical mb-3">
                                             <label class="form-label mb-1">Password</label>
                                             <div>
                                                 <span class="input-wrapper">

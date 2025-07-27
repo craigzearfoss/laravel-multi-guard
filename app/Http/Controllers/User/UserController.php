@@ -7,10 +7,12 @@ use App\Mail\ResetPassword;
 use App\Mail\VerifyEmail;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
@@ -19,12 +21,12 @@ class UserController extends Controller
         return view('user.dashboard');
     }
 
-    public function register(Request $request)
+    public function register(Request $request): RedirectResponse | View
     {
         if ($request->isMethod('post')) {
 
             $request->validate([
-                'name' => ['required', 'min:6', 'max:12'],
+                'name' => ['required', 'min:6', 'max:200'],
                 'email' => ['required', 'email', 'unique:users,email'],
                 'password' => ['required'],
                 'confirm_password' => ['required', 'same:password'],
@@ -59,7 +61,7 @@ class UserController extends Controller
         }
     }
 
-    public function email_verification($token, $email)
+    public function email_verification($token, $email): RedirectResponse
     {
         $user = User::where('email', $email)->where('token', $token)->first();
         if (!$user) {
@@ -77,7 +79,7 @@ class UserController extends Controller
         to your account.');
     }
 
-    public function login(Request $request)
+    public function login(Request $request): RedirectResponse | View
     {
         if ($request->isMethod('post')) {
 
@@ -106,14 +108,14 @@ class UserController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(): RedirectResponse
     {
         Auth::guard('web')->logout();
 
         return redirect()->route('homepage')->with('error', 'User logout successful.');
     }
 
-    public function forgot_password(Request $request)
+    public function forgot_password(Request $request): RedirectResponse | View
     {
         if ($request->isMethod('post')) {
 
@@ -149,7 +151,7 @@ class UserController extends Controller
         }
     }
 
-    public function reset_password($token, $email)
+    public function reset_password($token, $email): RedirectResponse | View
     {
         $user = User::where('email', $email)->where('token', $token)->first();
         if (!$user) {
@@ -159,7 +161,7 @@ class UserController extends Controller
         }
     }
 
-    public function reset_password_submit(Request $request, $token, $email)
+    public function reset_password_submit(Request $request, $token, $email): RedirectResponse
     {
         $request->validate([
             'password' => ['required'],

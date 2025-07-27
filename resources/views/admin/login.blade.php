@@ -24,14 +24,14 @@
                                 <form action="{{route('admin.login_submit')}}" method="POST">
                                     @csrf
                                     <div class="form-container vertical">
-                                        <div class="form-item vertical">
-                                            <label class="form-label mb-2">User Name</label>
+                                        <div class="form-item vertical mb-3">
+                                            <label class="form-label mb-1">User Name</label>
                                             <div>
                                                 <input class="input" type="text" name="username" value="{{ old('username') }}" placeholder="User Name">
                                             </div>
                                         </div>
-                                        <div class="form-item vertical">
-                                            <label class="form-label mb-2">Password</label>
+                                        <div class="form-item vertical mb-3">
+                                            <label class="form-label mb-1">Password</label>
                                             <div>
                                                 <span class="input-wrapper">
                                                     <input class="input pr-8" type="password" name="password" placeholder="Password">
@@ -45,7 +45,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="flex justify-between mb-6">
+                                        <div class="flex justify-between mb-3">
                                             <a class="text-primary-600 hover:underline" href="{{route('admin.forgot_password')}}">Forgot Password?</a>
                                         </div>
                                         <button class="btn btn-solid w-full" type="submit">Login</button>

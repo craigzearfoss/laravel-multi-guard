@@ -3,126 +3,83 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ResetPassword;
+use App\Http\Requests\AdminStoreRequest;
+use App\Http\Requests\AdminUpdateRequest;
 use App\Models\Admin;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 
 class AdminController extends Controller
 {
-    public function homepage()
+    const NUM_PER_PAGE = 20;
+
+    /**
+     * Display a listing of the admin.
+     */
+    public function index(): View
     {
-        return view('admin.homepage');
+        $admins = Admin::latest()->paginate(self::NUM_PER_PAGE);
+
+        return view('admin.admin.index', compact('admins'))
+            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
-    public function dashboard()
+    /**
+     * Show the form for creating a new admin.
+     */
+    public function create(): View
     {
-        return view('admin.dashboard');
+        return view('admin.admin.create');
     }
 
-    public function login(Request $request)
+    /**
+     * Store a newly created admin in storage.
+     */
+    public function store(AdminStoreRequest $request): RedirectResponse
     {
-        if ($request->isMethod('post')) {
+        Admin::create($request->validated());
 
-            $inputs= $request->all();
-            $username = $inputs['username'] ?? '';
-
-            $request->validate([
-                'username' => ['required'],
-                'password' => ['required'],
-            ]);
-
-            $data = [
-                'username' => $username,
-                'password' => $inputs['password'],
-            ];
-
-            if (Auth::guard('admin')->attempt($data)) {
-                return redirect()->route('admin_dashboard');
-            } else {
-                return view('admin.login')->withErrors('Invalid login credentials. Please try again.');
-            }
-        } else {
-
-            return view('admin.login');
-        }
+        return redirect()->route('admin.admin.index')
+            ->with('success', 'Admin created successfully.');
     }
 
-    public function logout()
+    /**
+     * Display the specified admin.
+     */
+    public function show(Admin $admin): View
     {
-        Auth::guard('admin')->logout();
-        return redirect()->route('admin_login')->with('success', 'Admin logout successfully.');
+        return view('admin.admin.show', compact('admin'));
     }
 
-    public function forgot_password(Request $request)
+    /**
+     * Show the form for editing the specified admin.
+     */
+    public function edit(Admin $admin)
     {
-        if ($request->isMethod('post')) {
-
-            $request->validate([
-                'email' => ['email', 'required']
-            ]);
-
-            $email = $request->email ?? '';
-            $admin = Admin::where('email', $email)->first();
-            if (!$admin) {
-                return view('admin.forgot_password')->withErrors('Admin with provided email does not exist.');
-            }
-
-            $admin->token = hash('sha256', time());
-            $admin->update();
-
-            $pResetLink = route('admin_reset_password', ['token' => $admin->token , 'email' => urlencode($email)]);
-            $subject = "Reset Password from " . getenv('APP_NAME');
-            $info = [
-                'user' => $admin->username,
-                'email' => $email,
-                'pResetLink' => $pResetLink
-            ];
-
-            Mail::to($request->email)->send(new ResetPassword($subject, $info));
-
-            return redirect()->back()->with('success', 'A reset link has been sent to your email address. Please check your
-            email. If you do not find the email in your inbox, please check your spam folder.');
-
-        } else {
-
-            return view('admin.forgot_password');
-        }
+        return view('admin.admin.edit', compact('admin'));
     }
 
-    public function reset_password($token, $email)
+    /**
+     * Update the specified admin in storage.
+     */
+    public function update(AdminUpdateRequest $request, Admin $admin): RedirectResponse
     {
-        $admin = Admin::where('email', $email)->where('token', $token)->first();
-        if (!$admin) {
-            return redirect()->route('admin_login')->with('error', 'Your reset password token is expired. Please try again.');
-        } else {
-            return view('admin.reset_password', compact('token', 'email'));
-        }
+        $admin->update($request->validated());
+
+        return redirect()->route('admin.admin.index')
+            ->with('success', 'Admin updated successfully');
     }
 
-    public function reset_password_submit(Request $request, $token, $email)
+    /**
+     * Remove the specified admin from storage.
+     */
+    public function destroy(Admin $admin): RedirectResponse
     {
-        $request->validate([
-            'password' => ['required'],
-            'confirm_password' => ['required', 'same:password']
-        ]);
+        $admin->delete();
 
-        $admin = Admin::where('email', $email)->where('token', $token)->first();
-        if (!$admin) {
-            return redirect()->back()->with('error', 'Your reset password token is expired. Please try again.');
-        }
-
-        if (Hash::check($request->password, $admin->password)) {
-            return redirect()->back()->with('error', ' You cannot use your old password again.');
-        }
-
-        $admin->password = Hash::make($request->password);
-        $admin->token = null;
-        $admin->update();
-
-        return redirect()->route('admin_login')->with('success', 'Your password has been changed. You can login
-        with your new password.');
+        return redirect()->route('admin.index')
+            ->with('success', 'Admin deleted successfully');
     }
 }

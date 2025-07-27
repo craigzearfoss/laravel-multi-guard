@@ -32,37 +32,35 @@
                                         </div>
                                         <div>
 
-                                            <form action="{{ route('admin.users.update',$user->id) }}" method="POST">
+                                            <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
 
                                                 <div class="mb-3">
-                                                    <label for="inputName" class="form-label mb-1">Name</label>
+                                                    <label for="name" class="form-label mb-1">Name</label>
                                                     <input
                                                         type="text"
-                                                        Title="name"
+                                                        name="name"
                                                         value="{{ $user->name }}"
                                                         class="form-control @error('name') is-invalid @enderror"
-                                                        id="inputName"
                                                         placeholder="Name"
                                                     >
                                                     @error('name')
-                                                    <div class="form-text text-danger">{{ $message }}</div>
+                                                        <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="inputEmail" class="form-label mb-1">Email</label>
+                                                    <label for="email" class="form-label mb-1">Email</label>
                                                     <input
                                                         type="email"
-                                                        Title="email"
+                                                        name="email"
                                                         value="{{ $user->email }}"
                                                         class="form-control @error('email') is-invalid @enderror"
-                                                        id="inputEmail"
                                                         placeholder="Email"
                                                     >
                                                     @error('email')
-                                                    <div class="form-text text-danger">{{ $message }}</div>
+                                                        <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
@@ -81,60 +79,6 @@
 
                 </div>
             </div>
-        </div>
-    </div>
-
-@endsection
-
-
-@extends('admin.layouts.default')
-
-@section('content')
-
-    <div class="card mt-5">
-        <h4 class="card-header">Edit User</h4>
-        <div class="card-body">
-
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a class="btn btn-primary btn-sm" href="{{ route('admin.users.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-            </div>
-
-            <form action="{{ route('admin.users.update',$user->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-
-                <div class="mb-3">
-                    <label for="inputName" class="form-label"><strong>Name:</strong></label>
-                    <input
-                        type="text"
-                        Title="name"
-                        value="{{ $user->name }}"
-                        class="form-control @error('name') is-invalid @enderror"
-                        id="inputName"
-                        placeholder="Name">
-                    @error('name')
-                    <div class="form-text text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="inputEmail" class="form-label"><strong>Email:</strong></label>
-                    <input
-                        type="email"
-                        Title="email"
-                        value="{{ $user->email }}"
-                        class="form-control @error('email') is-invalid @enderror"
-                        id="inputEmail"
-                        placeholder="Email">
-                    @error('email')
-                    <div class="form-text text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Update</button>
-
-            </form>
-
         </div>
     </div>
 

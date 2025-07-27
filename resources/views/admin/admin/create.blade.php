@@ -20,31 +20,31 @@
                                 <div class="card-body md:p-5">
                                     <div class="text-center">
                                         <div class="mb-4">
-                                            <h3 class="mb-1">Create User</h3>
+                                            <h3 class="mb-1">Create Admin</h3>
 
                                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
                                                 <?php /* @include('admin.components.messages', [$errors]) */ ?>
 
-                                                <a class="btn btn-sm btn-solid" href="{{ route('admin.users.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                                <a class="btn btn-sm btn-solid" href="{{ route('admin.admin.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                             </div>
 
                                         </div>
                                         <div>
 
-                                            <form action="{{ route('admin.users.store') }}" method="POST">
+                                            <form action="{{ route('admin.admin.store') }}" method="POST">
                                                 @csrf
 
                                                 <div class="mb-3">
-                                                    <label for="name" class="form-label mb-1">Name</label>
+                                                    <label for="username" class="form-label mb-1">User Name</label>
                                                     <input
                                                         type="text"
-                                                        name="name"
-                                                        class="form-control @error('name') is-invalid @enderror"
-                                                        value="{{ old('name') }}"
-                                                        placeholder="Name"
+                                                        name="username"
+                                                        class="form-control @error('username') is-invalid @enderror"
+                                                        value="{{ old('username') }}"
+                                                        placeholder="User Name"
                                                     >
-                                                    @error('name')
+                                                    @error('username')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>

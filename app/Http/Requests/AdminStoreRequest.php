@@ -4,16 +4,15 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use const http\Client\Curl\AUTH_ANY;
 
-class UserStoreRequest extends FormRequest
+class AdminStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check() || Auth::guard('web')->check();
+        return Auth::guard('admin')->check();
     }
 
     /**
@@ -24,11 +23,10 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'             => ['required', 'min:6', 'max:200'],
-            'email'            => ['required', 'email', 'unique:users,email'],
+            'username'         => ['required', 'alpha_dash', 'min:6', 'max:200', 'unique:admins,username'],
+            'email'            => ['required', 'email', 'unique:admins,email'],
             'password'         => ['required'],
             'confirm_password' => ['required', 'same:password'],
-            'status'           => ['integer', 'min:0', 'max:1'],
             'disabled'         => ['integer', 'min:0', 'max:1'],
         ];
     }

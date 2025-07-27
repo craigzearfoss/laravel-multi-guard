@@ -22,7 +22,7 @@
                         </a>
                     </li>
                     <li class="menu-collapse">
-                        <a href="{{route('admin.users.index')}}">
+                        <a href="{{route('admin.user.index')}}">
                             <div class="menu-item">
                                 <span class="text-xl opacity-50">
                                     <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">

@@ -21,7 +21,7 @@
 
                         @include('admin.components.messages', [$errors])
 
-                        <a class="btn btn-solid btn-sm" href="{{ route('admin.users.create') }}"><i class="fa fa-plus"></i> Create New User</a>
+                        <a class="btn btn-solid btn-sm" href="{{ route('admin.user.create') }}"><i class="fa fa-plus"></i> Create New User</a>
                     </div>
 
                     <table class="table table-bordered table-striped mt-4">
@@ -42,9 +42,9 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td class="text-nowrap">
-                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.users.show', $user->id) }}"><i class="fa-solid fa-list"></i> Show</a>
-                                        <a class="btn btn-sm" href="{{ route('admin.users.edit', $user->id) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                    <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST">
+                                        <a class="btn btn-sm" href="{{ route('admin.user.show', $user->id) }}"><i class="fa-solid fa-list"></i> Show</a>
+                                        <a class="btn btn-sm" href="{{ route('admin.user.edit', $user->id) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i> Delete</button>

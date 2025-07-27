@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $users = User::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.users.index', compact('users'))
+        return view('admin.user.index', compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function create(): View
     {
-        return view('admin.users.create');
+        return view('admin.user.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class UserController extends Controller
     {
         User::create($request->validated());
 
-        return redirect()->route('admin.users.index')
+        return redirect()->route('admin.user.index')
             ->with('success', 'User created successfully. User will need to verify email.');
     }
 
@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function show(User $user): View
     {
-        return view('admin.users.show', compact('user'));
+        return view('admin.user.show', compact('user'));
     }
 
     /**
@@ -60,7 +60,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        return view('admin.user.edit', compact('user'));
     }
 
     /**
@@ -70,7 +70,7 @@ class UserController extends Controller
     {
         $user->update($request->validated());
 
-        return redirect()->route('admin.users.index')
+        return redirect()->route('admin.user.index')
             ->with('success', 'User updated successfully');
     }
 
@@ -81,7 +81,7 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('admin.users.index')
+        return redirect()->route('admin.user.index')
             ->with('success', 'User deleted successfully');
     }
 }

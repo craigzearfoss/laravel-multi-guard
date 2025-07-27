@@ -26,13 +26,13 @@
 
                                                 <?php /* @include('admin.components.messages', [$errors]) */ ?>
 
-                                                <a class="btn btn-sm btn-solid" href="{{ route('admin.users.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                                <a class="btn btn-sm btn-solid" href="{{ route('admin.user.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                             </div>
 
                                         </div>
                                         <div>
 
-                                            <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+                                            <form action="{{ route('admin.user.update', $user->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
 

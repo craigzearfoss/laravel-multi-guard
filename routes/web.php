@@ -26,7 +26,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/reset-password/{token}/{email}', [AdminIndexController::class, 'reset_password'])->name('reset_password');
     Route::post('/reset-password/{token}/{email}', [AdminIndexController::class, 'reset_password_submit'])->name('reset_password_submit');
     Route::resource('admin', AdminAdminController::class);
-    Route::resource('users', AdminUserController::class);
+    Route::resource('user', AdminUserController::class);
 });
 
 // User

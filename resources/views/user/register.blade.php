@@ -23,20 +23,20 @@
                                 <form action="{{route('register_submit')}}" method="POST">
                                     @csrf
                                     <div class="form-container vertical">
-                                        <div class="form-item vertical">
-                                            <label class="form-label mb-2">Name</label>
+                                        <div class="form-item vertical mb-4">
+                                            <label class="form-label mb-1">Name</label>
                                             <div>
                                                 <input class="input" type="text" name="name" value="{{ old('name') }}" placeholder="Name">
                                             </div>
                                         </div>
-                                        <div class="form-item vertical">
-                                            <label class="form-label mb-2">Email</label>
+                                        <div class="form-item vertical mb-4">
+                                            <label class="form-label mb-1">Email</label>
                                             <div>
                                                 <input class="input" type="text" name="email" value="{{ old('email') }}" placeholder="Email">
                                             </div>
                                         </div>
-                                        <div class="form-item vertical">
-                                            <label class="form-label mb-2">Password</label>
+                                        <div class="form-item vertical mb-4">
+                                            <label class="form-label mb-1">Password</label>
                                             <div>
                                                 <span class="input-wrapper">
                                                     <input class="input pr-8" type="password" name="password"  placeholder="Password">
@@ -50,8 +50,8 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="form-item vertical">
-                                            <label class="form-label mb-2">Confirm Password</label>
+                                        <div class="form-item vertical mb-4">
+                                            <label class="form-label mb-1">Confirm Password</label>
                                             <div>
                                                 <span class="input-wrapper">
                                                     <input class="input pr-8" type="password" name="confirm_password" placeholder="Confirm Password">
@@ -66,7 +66,7 @@
                                             </div>
                                         </div>
                                         <button class="btn btn-solid w-full" type="submit">Register</button>
-                                        <div class="mt-4 text-center">
+                                        <div class="mt-3 text-center">
                                             <span>Already have an account?</span>
                                             <a class="text-primary-600 hover:underline" href="{{route('login')}}">Login</a>
                                         </div>

@@ -21,7 +21,7 @@
 
                             </div>
                             <div>
-                                <form action="{{route('admin_login_submit')}}" method="POST">
+                                <form action="{{route('admin.login_submit')}}" method="POST">
                                     @csrf
                                     <div class="form-container vertical">
                                         <div class="form-item vertical">
@@ -46,7 +46,7 @@
                                             </div>
                                         </div>
                                         <div class="flex justify-between mb-6">
-                                            <a class="text-primary-600 hover:underline" href="{{route('admin_forgot_password')}}">Forgot Password?</a>
+                                            <a class="text-primary-600 hover:underline" href="{{route('admin.forgot_password')}}">Forgot Password?</a>
                                         </div>
                                         <button class="btn btn-solid w-full" type="submit">Login</button>
                                     </div>

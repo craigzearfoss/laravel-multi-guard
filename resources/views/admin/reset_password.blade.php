@@ -21,7 +21,7 @@
 
                             </div>
                             <div>
-                                <form action="{{ route('admin_reset_password_submit', [$token, $email]) }}" method="POST">
+                                <form action="{{ route('admin.reset_password_submit', [$token, $email]) }}" method="POST">
                                     @csrf
                                     <div class="form-container vertical">
                                         <div class="form-item vertical">
@@ -57,7 +57,7 @@
                                         <button class="btn btn-solid w-full" type="submit">Submit</button>
                                         <div class="mt-4 text-center">
                                             <span>Back to</span>
-                                            <a class="text-primary-600 hover:underline" href="{{ route('admin_login') }}">Login</a>
+                                            <a class="text-primary-600 hover:underline" href="{{ route('admin.login') }}">Login</a>
                                         </div>
                                     </div>
                                 </form>

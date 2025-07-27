@@ -5,6 +5,10 @@
     <link rel="shortcut icon" href="{{asset('backend/assets/img/favicon.ico')}}">
     <title>{{ getenv('APP_NAME') ?? 'Laravel Multi-Guard System' }}</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
     <!-- Core CSS -->
     <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/style.css')}}">
+
 </head>

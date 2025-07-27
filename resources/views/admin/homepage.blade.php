@@ -20,7 +20,7 @@
 
                             </div>
                             <div>
-                                <a href="{{route('admin_login')}}" class="form-container vertical">
+                                <a href="{{route('admin.login')}}" class="form-container vertical">
                                     <button class="btn btn-solid w-full" type="button">Login</button>
                                 </a>
                             </div>

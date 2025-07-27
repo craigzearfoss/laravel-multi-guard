@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Front\FrontendController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -15,14 +16,15 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin_dashboard');
 });
 
-Route::prefix('admin')->group(function () {
-    Route::get('/login', [AdminController::class, 'login'])->name('admin_login');
-    Route::post('/login', [AdminController::class, 'login'])->name('admin_login_submit');
-    Route::get('/logout', [AdminController::class, 'logout'])->name('admin_logout');
-    Route::get('/forgot-password', [AdminController::class, 'forgot_password'])->name('admin_forgot_password');
-    Route::post('/forgot-password', [AdminController::class, 'forgot_password'])->name('admin_forgot_password_submit');
-    Route::get('/reset-password/{token}/{email}', [AdminController::class, 'reset_password'])->name('admin_reset_password');
-    Route::post('/reset-password/{token}/{email}', [AdminController::class, 'reset_password_submit'])->name('admin_reset_password_submit');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [AdminController::class, 'login'])->name('login');
+    Route::post('/login', [AdminController::class, 'login'])->name('login_submit');
+    Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+    Route::get('/forgot-password', [AdminController::class, 'forgot_password'])->name('forgot_password');
+    Route::post('/forgot-password', [AdminController::class, 'forgot_password'])->name('forgot_password_submit');
+    Route::get('/reset-password/{token}/{email}', [AdminController::class, 'reset_password'])->name('reset_password');
+    Route::post('/reset-password/{token}/{email}', [AdminController::class, 'reset_password_submit'])->name('reset_password_submit');
+    Route::resource('users', AdminUserController::class);
 });
 
 // User

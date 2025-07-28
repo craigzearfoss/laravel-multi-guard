@@ -8,14 +8,10 @@ use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Frontend
-Route::get('/', [FrontendController::class, 'homepage'])->name('homepage');
+Route::get('/', [FrontendController::class, 'index'])->name('index');
 
 // Admin
-Route::get('/admin', [AdminIndexController::class, 'homepage'])->name('admin_homepage');
-
-Route::middleware('admin')->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminIndexController::class, 'dashboard'])->name('admin_dashboard');
-});
+Route::get('/admin', [AdminIndexController::class, 'index'])->name('admin.index');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [AdminIndexController::class, 'login'])->name('login');
@@ -27,6 +23,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/reset-password/{token}/{email}', [AdminIndexController::class, 'reset_password_submit'])->name('reset_password_submit');
     Route::resource('admin', AdminAdminController::class);
     Route::resource('user', AdminUserController::class);
+
+Route::middleware('admin')->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminIndexController::class, 'dashboard'])->name('admin.dashboard');
 });
 
 // User

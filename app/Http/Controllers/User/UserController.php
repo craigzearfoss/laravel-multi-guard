@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
 use App\Mail\ResetPassword;
 use App\Mail\VerifyEmail;
 use App\Models\User;
@@ -25,12 +26,7 @@ class UserController extends Controller
     {
         if ($request->isMethod('post')) {
 
-            $request->validate([
-                'name' => ['required', 'min:6', 'max:200'],
-                'email' => ['required', 'email', 'unique:users,email'],
-                'password' => ['required'],
-                'confirm_password' => ['required', 'same:password'],
-            ]);
+            $request->validate((new UserStoreRequest())->rules());
 
             $user = new User();
             $user->name = $request->name;

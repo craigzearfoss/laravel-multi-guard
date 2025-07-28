@@ -39,7 +39,15 @@ class AdminController extends Controller
      */
     public function store(AdminStoreRequest $request): RedirectResponse
     {
-        Admin::create($request->validated());
+        $request->validate($request->rules());
+
+        $admin = new Admin();
+        $admin->username = $request->username;
+        $admin->email = $request->email;
+        $admin->password = Hash::make($request->password);
+        $admin->disabled = 0;
+
+        $admin->save();
 
         return redirect()->route('admin.admin.index')
             ->with('success', 'Admin created successfully.');

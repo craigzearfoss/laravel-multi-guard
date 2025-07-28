@@ -15,18 +15,26 @@
 
                 <div class="page-container relative h-full flex flex-auto flex-col">
                     <div class="h-full">
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0 h-full">
+                        <h3 class="card-header ml-3">Create Admin</h3>
+                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
                             <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
                                 <div class="card-body md:p-5">
                                     <div class="text-center">
                                         <div class="mb-4">
-                                            <h3 class="mb-1">Create Admin</h3>
 
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <div class="d-grid gap-2 d-md-flex justify-between">
 
                                                 <?php /* @include('admin.components.messages', [$errors]) */ ?>
+                                                @if ($errors->any())
+                                                    @include('admin.components.error-message', ['message'=>'Fix the indicated errors before saving.'])
+                                                @else
+                                                    <div></div>
+                                                @endif
 
-                                                <a class="btn btn-sm btn-solid" href="{{ route('admin.admin.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                                <div>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.admin.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                                </div>
+
                                             </div>
 
                                         </div>
@@ -36,13 +44,14 @@
                                                 @csrf
 
                                                 <div class="mb-3">
-                                                    <label for="username" class="form-label mb-1">User Name</label>
+                                                    <label for="username" class="form-label mb-1">user name</label>
                                                     <input
                                                         type="text"
                                                         name="username"
                                                         class="form-control @error('username') is-invalid @enderror"
                                                         value="{{ old('username') }}"
-                                                        placeholder="User Name"
+                                                        placeholder="user name"
+                                                        required
                                                     >
                                                     @error('username')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -50,13 +59,14 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="email" class="form-label mb-1">Email</label>
+                                                    <label for="email" class="form-label mb-1">email</label>
                                                     <input
                                                         type="email"
                                                         name="email"
                                                         class="form-control @error('email') is-invalid @enderror"
                                                         value="{{ old('email') }}"
-                                                        placeholder="Email"
+                                                        placeholder="email"
+                                                        required
                                                     >
                                                     @error('email')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -70,6 +80,7 @@
                                                         name="password"
                                                         class="form-control @error('password') is-invalid @enderror"
                                                         placeholder="Password"
+                                                        required
                                                     >
                                                     @error('password')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -83,6 +94,7 @@
                                                         name="confirm_password"
                                                         class="form-control @error('confirm_password') is-invalid @enderror"
                                                         placeholder="Confirm Password"
+                                                        required
                                                     >
                                                     @error('confirm_password')
                                                         <div class="form-text text-danger">{{ $message }}</div>

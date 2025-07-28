@@ -14,9 +14,9 @@ use Illuminate\View\View;
 
 class IndexController extends Controller
 {
-    public function homepage(): View
+    public function index(): View
     {
-        return view('admin.homepage');
+        return view('admin.index');
     }
 
     public function dashboard(): View
@@ -42,7 +42,7 @@ class IndexController extends Controller
             ];
 
             if (Auth::guard('admin')->attempt($data)) {
-                return redirect()->route('admin_dashboard');
+                return redirect()->route('admin.dashboard');
             } else {
                 return view('admin.login')->withErrors('Invalid login credentials. Please try again.');
             }
@@ -55,7 +55,7 @@ class IndexController extends Controller
     public function logout(): RedirectResponse
     {
         Auth::guard('admin')->logout();
-        return redirect()->route('admin_login')->with('success', 'Admin logout successfully.');
+        return redirect()->route('admin.login')->with('success', 'Admin logout successfully.');
     }
 
     public function forgot_password(Request $request): RedirectResponse | View
@@ -99,7 +99,7 @@ class IndexController extends Controller
     {
         $admin = Admin::where('email', $email)->where('token', $token)->first();
         if (!$admin) {
-            return redirect()->route('admin_login')->with('error', 'Your reset password token is expired. Please try again.');
+            return redirect()->route('admin.login')->with('error', 'Your reset password token is expired. Please try again.');
         } else {
             return view('admin.reset_password', compact('token', 'email'));
         }
@@ -125,7 +125,7 @@ class IndexController extends Controller
         $admin->token = null;
         $admin->update();
 
-        return redirect()->route('admin_login')->with('success', 'Your password has been changed. You can login
+        return redirect()->route('admin.login')->with('success', 'Your password has been changed. You can login
         with your new password.');
     }
 }

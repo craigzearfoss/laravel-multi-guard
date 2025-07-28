@@ -17,20 +17,24 @@
 
                     <h3 class="card-header">Admins</h3>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <div class="d-grid gap-2 d-md-flex justify-between">
 
-                        @include('admin.components.messages', [$errors])
-
-                        <a class="btn btn-solid btn-sm" href="{{ route('admin.admin.create') }}"><i class="fa fa-plus"></i> Create New Admin</a>
+                        <div>
+                            @include('admin.components.messages', [$errors])
+                        </div>
+                        <div>
+                            <a class="btn btn-solid btn-sm" href="{{ route('admin.admin.create') }}"><i class="fa fa-plus"></i> Create New Admin</a>
+                        </div>
                     </div>
 
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Action</th>
+                            <th>no.</th>
+                            <th class="whitespace-nowrap">user name</th>
+                            <th>email</th>
+                            <th class="text-center">disabled</th>
+                            <th>actions</th>
                         </tr>
                         </thead>
 
@@ -41,13 +45,14 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $admin->username }}</td>
                                 <td>{{ $admin->email }}</td>
+                                <td class="text-center">{{ $admin->disabled }}</td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.admin.destroy', $admin->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.admin.show', $admin->id) }}"><i class="fa-solid fa-list"></i> Show</a>
-                                        <a class="btn btn-sm" href="{{ route('admin.admin.edit', $admin->id) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                        <a class="btn btn-sm" href="{{ route('admin.admin.show', $admin->id) }}"><i class="fa-solid fa-list"></i>{{--  Show--}}</a>
+                                        <a class="btn btn-sm" href="{{ route('admin.admin.edit', $admin->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{--  Edit--}}</a>
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i> Delete</button>
+                                        <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{-- Delete--}}</button>
                                     </form>
                                 </td>
                             </tr>

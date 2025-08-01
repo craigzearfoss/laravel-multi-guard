@@ -14,9 +14,11 @@ return [
     */
 
     'copyright'       => env('APP_COPYRIGHT', ''),
+    'demo'            => env('APP_DEMO', '0'),
     'name'            => env('APP_NAME', 'Laravel'),
     'open_enrollment' => env('APP_OPEN_ENROLLMENT', '0'),
     'owner'           => env('APP_OWNER', ''),
+    'readonly'        => env('APP_READONLY', '0'),
 
     /*
     |--------------------------------------------------------------------------

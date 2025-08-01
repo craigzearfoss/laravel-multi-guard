@@ -40,6 +40,9 @@ Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::resource('cover-letter', CoverLetterController::class);
     Route::resource('link', LinkController::class);
     Route::resource('note', NoteController::class);
+    Route::get('/profile', [IndexController::class, 'profile'])->name('profile');
+    Route::get('/profile/edit', [IndexController::class, 'profile_edit'])->name('profile.edit');
+    Route::post('/profile/update', [IndexController::class, 'profile_update'])->name('profile.update');
     Route::resource('project', ProjectController::class);
     Route::resource('reading', ReadingController::class);
     Route::resource('resume', ResumeController::class);

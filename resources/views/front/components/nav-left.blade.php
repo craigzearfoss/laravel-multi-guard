@@ -8,6 +8,61 @@
         <nav class="menu menu-transparent px-4 pb-4">
 
             <div class="menu-group">
+                <ul>
+
+                    <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
+                    <li class="menu-collapse">
+                        <a href="{{route('project.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <i class="fa-solid fa-wrench"></i>
+                                </span>
+                                <span>Projects</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('certificate.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <i class="fa-solid fa-certificate"></i>
+                                </span>
+                                <span>Certificates</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('link.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <i class="fa-solid fa-link"></i>
+                                </span>
+                                <span>Links</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('reading.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <i class="fa-solid fa-book"></i>
+                                </span>
+                                <span>Readings</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('video.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <i class="fa-solid fa-video-camera"></i>
+                                </span>
+                                <span>Videos</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+
                 <div class="menu-title">Authentication</div>
                 <ul>
 

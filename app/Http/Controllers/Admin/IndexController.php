@@ -16,7 +16,11 @@ class IndexController extends Controller
 {
     public function index(): View
     {
-        return view('admin.index');
+        if (Auth::guard('admin')->check()) {
+            return view('admin.dashboard');
+        } else {
+            return view('admin.index');
+        }
     }
 
     public function dashboard(): View

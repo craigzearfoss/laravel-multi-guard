@@ -10,6 +10,8 @@
             <div class="menu-group">
                 <div class="menu-title">Authentication</div>
                 <ul>
+
+                    <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
                     <li class="menu-collapse">
                         <a href="{{route('login')}}">
                             <div class="menu-item">
@@ -52,6 +54,7 @@
                         </a>
                     </li>
                     */ ?>
+
                 </ul>
             </div>
 

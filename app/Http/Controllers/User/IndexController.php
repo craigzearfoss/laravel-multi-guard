@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers\User;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
+use App\Mail\ResetPassword;
+use App\Mail\VerifyEmail;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
+
+class IndexController extends Controller
+{
+    public function index(): View
+    {
+        if (Auth::guard('web')->check()) {
+            return view('user.dashboard');
+        } else {
+            return view('front.index');
+        }
+    }
+
+    public function dashboard()
+    {
+        return view('user.dashboard');
+    }
+}

@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
 use App\Mail\ResetPassword;
 use App\Mail\VerifyEmail;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,13 +14,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
-class UserController extends Controller
+class IndexController extends Controller
 {
-    public function dashboard()
-    {
-        return view('user.dashboard');
-    }
-
     public function register(Request $request): RedirectResponse | View
     {
         if ($request->isMethod('post') && config('app.open_enrollment')) {
@@ -93,7 +87,7 @@ class UserController extends Controller
             ];
 
             if (Auth::guard('web')->attempt($data)) {
-                return redirect()->route('dashboard');
+                return redirect()->route('homepage');
             } else {
                 return view('user.login')->withErrors('Invalid login credentials. Please try again.');
             }
@@ -179,5 +173,25 @@ class UserController extends Controller
 
         return redirect()->route('login')->with('success', 'Your password has been changed. You can login
         with your new password.');
+    }
+
+    public function about(): View
+    {
+        return view('front.about');
+    }
+
+    public function contact(): View
+    {
+        return view('front.contact');
+    }
+
+    public function privacy_policy(): View
+    {
+        return view('front.privacy-policy');
+    }
+
+    public function terms_and_conditions(): View
+    {
+        return view('front.terms-and-conditions');
     }
 }

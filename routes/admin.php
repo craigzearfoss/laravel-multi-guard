@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CoverLetterController;
 use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\JobBoardController;
 use App\Http\Controllers\Admin\LinkController;
 use App\Http\Controllers\Admin\NoteController;
 use App\Http\Controllers\Admin\ProjectController;
@@ -38,6 +39,7 @@ Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::resource('company', CompanyController::class);
     Route::resource('contact', ContactController::class);
     Route::resource('cover-letter', CoverLetterController::class);
+    Route::resource('job-board', JobBoardController::class);
     Route::resource('link', LinkController::class);
     Route::resource('note', NoteController::class);
     Route::get('/profile', [IndexController::class, 'profile'])->name('profile');

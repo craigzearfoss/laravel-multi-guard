@@ -27,9 +27,10 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Route;
-
+/*
 Route::prefix('api/v1/')->group(function () {
     Route::get('users', function () { return new  App\Http\Resources\UserCollection(User::all()); });
     Route::get('user/{id}', function (string $id) { return User::findOrFail($id)->toResource(); } );
     //Route::get('/users', function () { return UserResource::collection(User::all()); });
 });
+*/

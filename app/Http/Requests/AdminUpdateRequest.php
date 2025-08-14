@@ -22,12 +22,17 @@ class AdminUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $adminId = $this->admin->id ?? Auth::guard('admin')->user()->id;
+
         return [
-            'username' => ['string', 'min:6', 'max:200', 'unique:admins,username,'.$this->admin->id],
-            'email'    => ['email', 'max:255', 'unique:admins,email,'.$this->admin->id],
-            //'password' => ['required', 'string', 'min:8'],
-            //'token'  => ['nullable', 'string', 'max:255'],
-            'disabled' => ['integer', 'between:0,1'],
+            'name'              => ['string', 'max:255', 'nullable'],
+            //'username'        => ['string', 'min:6', 'max:200', 'unique:admins,username,'.$adminId],  // cannot change the password
+            'phone'             => ['string', 'max:20', 'nullable'],
+            'email'             => ['email', 'max:255', 'unique:admins,email,'.$adminId, 'nullable'],
+            'password'          => ['string', 'min:8', 'max:255'],
+            'confirm_password'  => ['string', 'same:password'],
+            'token'             => ['string', 'max:255', 'nullable'],
+            'disabled'          => ['integer', 'between:0,1'],
         ];
     }
 }

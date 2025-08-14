@@ -20,76 +20,99 @@
                             <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow" role="presentation">
                                 <div class="card-body md:p-5">
 
+                                    <div>
+                                        @include('admin.components.messages', [$errors])
+                                    </div>
+
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <a class="btn btn-sm btn-solid" href="{{ route('admin.user.change_password', $user->id) }}"><i class="fa fa-key"></i> Change Password</a>
                                         <a class="btn btn-solid btn-sm" href="{{ route('admin.user.edit', $user) }}"><i class="fa fa-pen-to-square"></i> Edit</a>
                                         <a class="btn btn-solid btn-sm" href="{{ route('admin.user.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>name</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $user->name }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>email</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $user->email }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>status</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ \App\Models\User::statusName($user->status) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>disabled</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>email verified at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($user->email_verified_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($user->created_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($user->updated_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($user->deleted_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $user->name
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'street',
+                                            'value' => $user->street
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'street2',
+                                            'value' => $user->street2
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'city',
+                                            'value' => $user->city
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'state',
+                                            'value' => \App\Models\State::getName($user->state)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'zip',
+                                            'value' => $user->zip
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'country',
+                                            'value' => \App\Models\Country::getName($user->country)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'phone',
+                                            'value' => $user->phone
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'email',
+                                            'value' => $user->email
+                                        ])
+
+                                        @include('admin.components.show-row-link', [
+                                            'name'   => 'website',
+                                            'url'    => $user->website,
+                                            'target' => '_blank'
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'status',
+                                            'value' => \App\Models\User::statusName($user->status)
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $user->disabled
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'email verified at',
+                                            'value' => longDateTime($user->email_verified_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'created at',
+                                            'value' => longDateTime($user->created_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'updated at',
+                                            'value' => longDateTime($user->updated_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'deleted at',
+                                            'value' => longDateTime($user->deleted_at)
+                                        ])
+
                                     </div>
 
                                 </div>

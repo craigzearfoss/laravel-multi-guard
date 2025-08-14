@@ -7,7 +7,8 @@
 
             @include('admin.components.nav-left')
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            <div
+                class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
 
                 @include('admin.components.header')
 
@@ -24,15 +25,22 @@
 
                                             <div class="d-grid gap-2 d-md-flex justify-between">
 
-                                                <?php /* @include('admin.components.messages', [$errors]) */ ?>
+                                                @if (session('success'))
+                                                    @include('admin.components.message-success', ['message'=> session('success')])
+                                                @endif
+
+                                                @if (session('error'))
+                                                    @include('admin.components.message-success', ['message'=> session('danger')])
+                                                @endif
+
                                                 @if ($errors->any())
                                                     @include('admin.components.error-message', ['message'=>'Fix the indicated errors before saving.'])
-                                                @else
-                                                    <div></div>
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.admin.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid"
+                                                       href="{{ route('admin.admin.index') }}"><i
+                                                            class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -43,45 +51,64 @@
                                             <form action="{{ route('admin.admin.store') }}" method="POST">
                                                 @csrf
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'username',
-                                                    'value'     => old('username'),
-                                                    'required'  => true,
-                                                    'minlength' => 6,
-                                                    'maxlength' => 200,
-                                                    'message'   => $message ?? '',
-                                                ])
+                                                <div class="card p-4 mb-3">
+
+                                                    @include('admin.components.form-input', [
+                                                        'name'      => 'username',
+                                                        'value'     => old('username'),
+                                                        'required'  => true,
+                                                        'minlength' => 6,
+                                                        'maxlength' => 200,
+                                                        'message'   => $message ?? '',
+                                                    ])
+
+                                                    @include('admin.components.form-input', [
+                                                        'type'      => 'email',
+                                                        'name'      => 'email',
+                                                        'value'     => old('email'),
+                                                        'required'  => true,
+                                                        'maxlength' => 255,
+                                                        'message'   => $message ?? '',
+                                                    ])
+
+                                                    @include('admin.components.form-input', [
+                                                        'type'        => 'password',
+                                                        'name'        => 'password',
+                                                        'value'       => old('password'),
+                                                        'required'    => true,
+                                                        'minlength'   => 8,
+                                                        'maxlength'   => 255,
+                                                        'message'     => $message ?? '',
+                                                        'placeholder' => 'Password'
+                                                    ])
+
+                                                    @include('admin.components.form-input', [
+                                                        'label'       => 'confirm password',
+                                                        'type'        => 'password',
+                                                        'name'        => 'confirm_password',
+                                                        'value'       => old('confirm_password'),
+                                                        'required'    => true,
+                                                        'minlength'   => 8,
+                                                        'maxlength'   => 255,
+                                                        'message'     => $message ?? '',
+                                                        'placeholder' => 'Confirm Password'
+                                                    ])
+
+                                                </div>
 
                                                 @include('admin.components.form-input', [
-                                                    'type'      => 'email',
-                                                    'name'      => 'email',
-                                                    'value'     => old('email'),
-                                                    'required'  => true,
+                                                    'name'      => 'name',
+                                                    'value'     => old('name'),
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
-                                                    'type'        => 'password',
-                                                    'name'        => 'password',
-                                                    'value'       => old('password'),
-                                                    'required'    => true,
-                                                    'minlength'   => 8,
-                                                    'maxlength'   => 255,
-                                                    'message'     => $message ?? '',
-                                                    'placeholder' => 'Password'
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'label'       => 'confirm password',
-                                                    'type'        => 'password',
-                                                    'name'        => 'confirm_password',
-                                                    'value'       => old('confirm_password'),
-                                                    'required'    => true,
-                                                    'minlength'   => 8,
-                                                    'maxlength'   => 255,
-                                                    'message'     => $message ?? '',
-                                                    'placeholder' => 'Confirm Password'
+                                                    'name'      => 'phone',
+                                                    'value'     => old('phone'),
+                                                    'required'  => true,
+                                                    'maxlength' => 20,
+                                                    'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [

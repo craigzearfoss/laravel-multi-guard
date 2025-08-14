@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MessageStoreRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Mail\ResetPassword;
 use App\Mail\VerifyEmail;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

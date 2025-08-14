@@ -25,11 +25,21 @@ class UserFactory extends Factory
     {
         return [
             'name'              => fake()->name(),
+            'title'             => fake()->randomElement(\App\Models\User::titleListOptions()),
+            'street'            => fake()->streetAddress(),
+            'street2'           => null,
+            'city'              => fake()->city(),
+            'state'             => fake()->randomElement(\App\Models\State::all()->pluck('code')->toArray()),
+            'zip'               => fake()->postcode(),
+            'country'           => fake()->randomElement(\App\Models\Country::all()->pluck('iso_alpha3')->toArray()),
+            'phone'             => fake()->phoneNumber(),
             'email'             => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'website'           => fake()->url(),
             'password'          => static::$password ??= Hash::make('password'),
             'remember_token'    => Str::random(10),
             'status'            => 1,
+            'disabled'          => fake()->numberBetween(0, 1),
         ];
     }
 
